@@ -1,16 +1,19 @@
 import React from "react";
 import { useTodo } from "../../../context/TodoContext";
 import Item from "./Item";
-let filtered = null;
+let filtered = [];
 function List() {
 	const { todos, filter, setTodos } = useTodo();
-	filtered = todos;
-	if (filter !== "all") {
-		filtered = todos.filter((todo) =>
-			filter === "active" ? todo.completed === false : todo.completed === true
-		);
-		// console.log(filtered);
+	if (todos !== undefined) {
+		filtered = todos;
+		if (filter !== "all") {
+			filtered = todos.filter((todo) =>
+				filter === "active" ? todo.completed === false : todo.completed === true
+			);
+			// console.log(filtered);
+		}
 	}
+
 	// console.log(todos);
 	return (
 		<ul className="todo-list">

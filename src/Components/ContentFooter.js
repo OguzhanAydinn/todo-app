@@ -1,16 +1,25 @@
 import React from "react";
 import { useTodo } from "../context/TodoContext";
 
+let filtered = [];
 function ContentFooter() {
 	const { todos, filter, setFilter, setTodos } = useTodo();
+	if (todos !== undefined) {
+		filtered = todos;
+		if (filter !== "all") {
+			filtered = todos.filter((todo) =>
+				filter === "active" ? todo.completed === false : todo.completed === true
+			);
+		}
+	}
 	const clearCompeted = () =>
 		setTodos((prev) => prev.filter((todo) => !todo.completed));
 
 	return (
 		<footer className="footer">
 			<span className="todo-count">
-				<strong>{todos.length} </strong>
-				item{todos.lenght > 1 && "s"} left
+				<strong>{filtered.length} </strong>
+				item{filtered.lenght > 1 && "s"} left
 			</span>
 
 			<ul className="filters">
